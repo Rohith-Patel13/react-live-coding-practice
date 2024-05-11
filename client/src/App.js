@@ -21,21 +21,40 @@ const listOfArray = ["play cricket","play video game","read book"]
 
 const App = ()=>{
 
+  const [arrayOfList,setArrayOfList] = useState(listOfArray)
+  const [isChecked,setIsChecked] = useState({checkedValue:false,i:null})  
+
   const [countryValue,setCountryValue] = useState(
     {
       countryName:countries[0].value,
     }
   )
 
+  
   return(
     <>
       <ul>
         {
-          listOfArray.map((each,index)=>(
+          arrayOfList.map((each,index)=>(
             <div key={index} className="each-li-container">
-              <input type="checkbox" className="check-box" />
+              <input  type="checkbox" onChange={(e)=>{
+                // console.log(e.target.checked)
+                setIsChecked({i:index,checkedValue:e.target.checked})
+              }}
+              className="check-box" />
               <li className="li-el">{each}</li>
-              <img src={deleteIcon} className="delete-icon"  alt="deleteIcon"/>
+              {
+                isChecked.checkedValue && isChecked.i===index && (
+                  <img src={deleteIcon} onClick={()=>{
+                    setArrayOfList(
+                      arrayOfList.filter((e)=>e!==arrayOfList[index])
+                    )
+                    setIsChecked({i:null,checkedValue:false})
+                  }}
+                   className="delete-icon" 
+                   alt="deleteIcon"/>    
+                )
+              }
             </div>  
           ))
         }
@@ -53,9 +72,9 @@ const App = ()=>{
         }
       </select>
       {
-        countries.map((each)=>(
+        countries.map((each,index)=>(
           each.value===countryValue.countryName?(
-            <select>
+            <select key={index}>
               {
                 each.cities.map((cityValue,index)=>(
                   <option key={index}>{cityValue}</option>
