@@ -1,0 +1,17 @@
+.each-li-container{
+    display: flex;
+}
+
+.li-el{
+    list-style: none;
+}
+
+.check-box{
+    cursor: pointer;
+}
+
+.delete-icon{
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}

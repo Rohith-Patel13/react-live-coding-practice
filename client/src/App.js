@@ -1,5 +1,7 @@
 import {useState} from "react"
 import './App.css';
+import deleteIcon from './images/trash-can-arrow-up-solid.svg'
+
 
 const countries = [
   {name:"India", value:"IN", cities:["Hyderabad","Banglore"]},
@@ -14,6 +16,7 @@ const countries = [
   {name:"Canada", value:"CA", cities:["Toronto","Vancouver"]},
 ];
 
+const listOfArray = ["play cricket","play video game","read book"]
 
 
 const App = ()=>{
@@ -26,6 +29,18 @@ const App = ()=>{
 
   return(
     <>
+      <ul>
+        {
+          listOfArray.map((each,index)=>(
+            <div key={index} className="each-li-container">
+              <input type="checkbox" className="check-box" />
+              <li className="li-el">{each}</li>
+              <img src={deleteIcon} className="delete-icon"  alt="deleteIcon"/>
+            </div>  
+          ))
+        }
+      </ul>
+
       <select onChange={(e)=>(
         setCountryValue({...countryValue,countryName:e.target.value})
       )}>
