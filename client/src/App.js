@@ -22,44 +22,33 @@ const listOfArray = ["play cricket","play video game","read book"]
 const App = ()=>{
 
   const [arrayOfList,setArrayOfList] = useState(listOfArray)
-  const [isChecked,setIsChecked] = useState({checkedValue:false,i:[]})  
-
   const [countryValue,setCountryValue] = useState(
     {
       countryName:countries[0].value,
     }
   )
-
-  
+ 
   return(
     <>
       <ul>
         {
           arrayOfList.map((each,index)=>(
-            <div key={index} className="each-li-container">
-              <input  type="checkbox" onChange={(e)=>{
-                // console.log(e.target.checked)
-                if(!e.target.checked){
-                  setIsChecked({...isChecked,checkedValue:e.target.checked})
-
-                }
-                setIsChecked({i:[...isChecked.i,index],checkedValue:e.target.checked})
-              }}
-              className="check-box" />
-              <li className="li-el">{each}</li>
-              {
-                isChecked.checkedValue && isChecked.i.includes(index) && (
-                  <img src={deleteIcon} onClick={()=>{
-                    setArrayOfList(
-                      arrayOfList.filter((e)=>e!==arrayOfList[index])
-                    )
-                    
-                  }}
-                   className="delete-icon" 
-                   alt="deleteIcon"/>    
-                )
-              }
-            </div>  
+            <li key={index} className="each-li-container">
+              <input type="checkbox" 
+              className="check-box"
+              />
+              
+              {each}   
+              
+              <img src={deleteIcon} onClick={()=>{
+                setArrayOfList(
+                  arrayOfList.filter((e)=>e!==arrayOfList[index])
+                )                   
+                }}
+                className="delete-icon" 
+                alt="deleteIcon"
+              />
+            </li>  
           ))
         }
       </ul>
