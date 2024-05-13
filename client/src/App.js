@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState,useRef, useEffect} from "react"
 import './App.css';
 import deleteIcon from './images/trash-can-arrow-up-solid.svg'
 
@@ -21,25 +21,32 @@ const listOfArray = ["play cricket","play video game","read book"]
 
 const App = ()=>{
 
+  useEffect(()=>{
+    data.current.focus() // auto focusing
+  })
+
   const [arrayOfList,setArrayOfList] = useState(listOfArray)
   const [countryValue,setCountryValue] = useState(
     {
       countryName:countries[0].value,
     }
   )
+  const data = useRef(null)
+
  
   return(
     <>
+      <div>
+        <input ref={data}
+         onChange={(e)=>(console.log(data.current.value))}
+         type="text" />
+      </div>
       <ul>
         {
           arrayOfList.map((each,index)=>(
             <li key={index} className="each-li-container">
-              <input type="checkbox" 
-              className="check-box"
-              />
-              
-              {each}   
-              
+              <input type="checkbox" className="check-box" />              
+              {each}                 
               <img src={deleteIcon} onClick={()=>{
                 setArrayOfList(
                   arrayOfList.filter((e)=>e!==arrayOfList[index])
