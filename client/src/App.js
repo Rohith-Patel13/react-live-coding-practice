@@ -1,4 +1,4 @@
-import {useState,useRef, useEffect} from "react"
+import {useState,useRef,useEffect, useReducer} from "react"
 import './App.css';
 import deleteIcon from './images/trash-can-arrow-up-solid.svg'
 
@@ -19,11 +19,17 @@ const countries = [
 const listOfArray = ["play cricket","play video game","read book"]
 
 
-const App = ()=>{
 
-  useEffect(()=>{
-    data.current.focus() // auto focusing
-  })
+const todoReducer = (state,action)=>{
+  console.log(state,action)
+  
+}
+
+
+
+
+
+const App = ()=>{
 
   const [arrayOfList,setArrayOfList] = useState(listOfArray)
   const [countryValue,setCountryValue] = useState(
@@ -31,11 +37,37 @@ const App = ()=>{
       countryName:countries[0].value,
     }
   )
-  const data = useRef(null)
 
- 
+  const [todos,dispatch]=useReducer(todoReducer,[]) // useReducer(<reducer>, <initialState>)
+
+  const data = useRef(null) 
+  // const todoText = useRef(null)
+
+  useEffect(()=>{
+    data.current.focus() // auto focusing
+    // todoText.current.focus() // auto focusing
+  })
+
+
+
+  const addTodoSubmit = (e)=>{
+    e.preventDefault()
+    console.log(e.target.elements[0].value) 
+    dispatch({type:"addTodo",payload:{todo:e.target.elements[0].value}})
+  }
+  
+
   return(
     <>
+      <form onSubmit={addTodoSubmit}>
+        <input 
+        // ref={todoText} 
+        type="text" 
+        placeholder="add todo" 
+        />
+      </form>
+      {todos}
+
       <div>
         <input ref={data}
          onChange={(e)=>(console.log(data.current.value))}
